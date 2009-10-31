@@ -18,3 +18,4 @@ Currently to change your modifier key, go to `about:config` and change `extensio
 
 # TODO
 * Have preferences set via GUI.
+* Keys for accessing bookmarks higher than 1-9

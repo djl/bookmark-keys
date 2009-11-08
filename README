@@ -1,0 +1,23 @@
+Command Keys
+------------
+Safari-style access to your bookmarks bar using command/control 1-9.
+
+
+
+Notes
+-----
+Command Keys is merely `Bookmark Keys`_ updated to work with Firefox 3.*.
+
+.. _Bookmark Keys: https://addons.mozilla.org/en-US/firefox/addon/3647
+
+
+
+Install
+-------
+Drag the XPI onto Firefox.
+
+
+
+TODO
+----
+* Keys for accessing bookmarks higher than 1-9

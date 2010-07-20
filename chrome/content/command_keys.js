@@ -11,14 +11,11 @@ function ck_load_bookmark(id)
             while (count <= id)
             {
                 item = bookmarks.item(count);
-                if (item.nodeName != "toolbarseparator")
+                if (item.nodeName == "toolbarbutton" && count == id)
                 {
-                    if (count == id)
-                    {
-                        item.doCommand();
-                    }
-                    count++;
+                    item.doCommand();
                 }
+                count++;
             }
         }
     }
@@ -39,7 +36,7 @@ function ck_set_keys()
         key.setAttribute("oncommand", "ck_load_bookmark(" + i + ");");
         key.setAttribute("modifiers", "accel");
         keyset.appendChild(key);
-        
+
         // disable old keys
         if (i < 9)
         {

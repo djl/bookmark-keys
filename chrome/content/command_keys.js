@@ -1,7 +1,11 @@
 function ck_load_bookmark(id)
 {
     id = id - 1;
-    var bookmarks_bar = document.getElementById("bookmarksBarContent");
+    var bookmarks_bar = document.getElementById("PlacesToolbarItems");
+    if (!bookmarks_bar)
+    {
+        bookmarks_bar = document.getElementById("bookmarksBarContent");
+    }
     if (bookmarks_bar.hasChildNodes())
     {
         var bookmarks = bookmarks_bar.childNodes;
@@ -11,7 +15,7 @@ function ck_load_bookmark(id)
             while (count <= id)
             {
                 item = bookmarks.item(count);
-                if (item.nodeName == "toolbarbutton" && count == id)
+                if (item.nodeName != "toolbarseparator" && count == id)
                 {
                     item.doCommand();
                 }
@@ -23,10 +27,10 @@ function ck_load_bookmark(id)
 
 function ck_set_keys()
 {
+    var key = null;
     var keys_list = document.getElementById("mainKeyset");
     var keyset = document.createElement("keyset");
     keyset.setAttribute('id', 'ckKeyset');
-    var key = null;
     for (var i = 1; i <= 9; i++)
     {
         // add our new keys

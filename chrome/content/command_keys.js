@@ -1,28 +1,37 @@
 function ck_load_bookmark(id)
 {
     id = id - 1;
-    var bookmarks_bar = document.getElementById("PlacesToolbarItems");
-    if (!bookmarks_bar)
+    var historyService = Components.classes["@mozilla.org/browser/nav-history-service;1"]
+                               .getService(Components.interfaces.nsINavHistoryService);
+    var options = historyService.getNewQueryOptions();
+    var query = historyService.getNewQuery();
+
+    var bookmarksService = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
+                                     .getService(Components.interfaces.nsINavBookmarksService);
+    var toolbarFolder = bookmarksService.toolbarFolder;
+
+    query.setFolders([toolbarFolder], 1);
+
+    var result = historyService.executeQuery(query, options);
+    var bookmarks_bar = result.root;
+    bookmarks_bar.containerOpen = true;
+    if (bookmarks_bar.childCount >= 1)
     {
-        bookmarks_bar = document.getElementById("bookmarksBarContent");
-    }
-    if (bookmarks_bar.hasChildNodes())
-    {
-        var bookmarks = bookmarks_bar.childNodes;
         var count = 0;
-        if (id <= bookmarks.length)
+        if (id <= bookmarks_bar.childCount)
         {
             while (count <= id)
             {
-                item = bookmarks.item(count);
+                item = bookmarks_bar.getChild(count);
                 if (item.nodeName != "toolbarseparator" && count == id)
                 {
-                    item.doCommand();
+                    gBrowser.loadURI(item.uri);
                 }
                 count++;
             }
         }
     }
+    rootNode.containerOpen = false;
 }
 
 function ck_set_keys()

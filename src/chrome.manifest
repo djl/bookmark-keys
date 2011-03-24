@@ -1,2 +1,2 @@
-content		command_keys	chrome/content/
-overlay		chrome://browser/content/browser.xul	chrome://command_keys/content/command_keys.xul
+content command_keys chrome/content/
+overlay chrome://browser/content/browser.xul chrome://command_keys/content/command_keys.xul

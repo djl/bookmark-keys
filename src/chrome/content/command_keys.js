@@ -1,63 +1,58 @@
-function ck_load_bookmark(id)
-{
-    id = id - 1;
-    var historyService = Components.classes["@mozilla.org/browser/nav-history-service;1"]
-                               .getService(Components.interfaces.nsINavHistoryService);
-    var options = historyService.getNewQueryOptions();
-    var query = historyService.getNewQuery();
+var commandKeys = {
+    bookmarks: [],
+    keyset: document.getElementById("mainKeyset"),
 
-    var bookmarksService = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
-                                     .getService(Components.interfaces.nsINavBookmarksService);
-    var toolbarFolder = bookmarksService.toolbarFolder;
+    init: function() {
+        var historyService = Components.classes["@mozilla.org/browser/nav-history-service;1"]
+                                   .getService(Components.interfaces.nsINavHistoryService);
+        var options = historyService.getNewQueryOptions();
+        var query = historyService.getNewQuery();
 
-    query.setFolders([toolbarFolder], 1);
+        var bookmarksService = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
+                                         .getService(Components.interfaces.nsINavBookmarksService);
+        var toolbarFolder = bookmarksService.toolbarFolder;
 
-    var result = historyService.executeQuery(query, options);
-    var bookmarks_bar = result.root;
-    bookmarks_bar.containerOpen = true;
-    if (bookmarks_bar.childCount >= 1)
-    {
-        var count = 0;
-        if (id <= bookmarks_bar.childCount)
+        query.setFolders([toolbarFolder], 1);
+
+        var result = historyService.executeQuery(query, options);
+        var bookmarks_bar = result.root;
+        bookmarks_bar.containerOpen = true;
+        if (bookmarks_bar.childCount >= 1)
         {
-            while (count <= id)
-            {
-                item = bookmarks_bar.getChild(count);
-                if (item.nodeName != "toolbarseparator" && count == id)
-                {
-                    gBrowser.loadURI(item.uri);
+            for (var i=0; i < 9; i++) {
+                try {
+                    item = bookmarks_bar.getChild(i);
+                    commandKeys.bookmarks.push(item.uri);
+                    commandKeys.setupKey(i);
+                } catch (err) {
+                    // ran out of bookmarks
+                    break;
                 }
-                count++;
             }
         }
-    }
-    rootNode.containerOpen = false;
-}
+    },
 
-function ck_set_keys()
-{
-    var keyset = document.getElementById("mainKeyset");
-    for (var i = 1; i <= 9; i++)
-    {
-        // add our new keys
+    setupKey: function(index) {
+        number = index + 1;
         var key = document.createElement("key");
-        key.setAttribute("id", "ck_load_bookmark_" + i);
-        key.setAttribute("key", i);
-        key.setAttribute("oncommand", "ck_load_bookmark(" + i + ");");
+        key.setAttribute("id", "commandKeys_" + number);
+        key.setAttribute("key", number);
+        key.setAttribute("oncommand", "commandKeys.go(" + index + ");");
         key.setAttribute("modifiers", "accel");
-        keyset.appendChild(key);
+        commandKeys.keyset.appendChild(key);
 
         // disable old keys
-        if (i < 9)
-        {
-            var old_key = document.getElementById("key_selectTab" + i);
-        }
-        else
-        {
+        if (number < 9) {
+            var old_key = document.getElementById("key_selectTab" + number);
+        } else {
             var old_key = document.getElementById("key_selectLastTab");
         }
         old_key.removeAttribute('oncommand');
+    },
+
+    go: function(index) {
+        gBrowser.loadURI(commandKeys.bookmarks[index]);
     }
 }
 
-ck_set_keys();
+window.addEventListener("load", commandKeys.init, false);

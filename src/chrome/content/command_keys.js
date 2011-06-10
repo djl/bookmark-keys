@@ -30,6 +30,7 @@ var commandKeys = {
                 }
             }
         }
+        bookmarks_bar.containerOpen = false;
     },
 
     setupKey: function(index) {

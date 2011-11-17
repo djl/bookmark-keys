@@ -3,6 +3,27 @@ var commandKeys = {
     keyset: document.getElementById("mainKeyset"),
 
     init: function() {
+        for (var i=0; i < 9; i++) {
+            var tab = i + 1;
+            var keyset = document.getElementById("mainKeyset");
+            var key = document.createElement("key");
+            key.setAttribute("id", "commandKeys_" + tab);
+            key.setAttribute("key", tab);
+            key.setAttribute("oncommand", "commandKeys.go(" + i + ");");
+            key.setAttribute("modifiers", "accel");
+            keyset.appendChild(key);
+
+            // disable old keys
+            if (tab < 9) {
+                var old_key = document.getElementById("key_selectTab" + tab);
+            } else {
+                var old_key = document.getElementById("key_selectLastTab");
+            }
+            old_key.removeAttribute('oncommand');
+        }
+    },
+
+    getBookmark: function(index) {
         var historyService = Components.classes["@mozilla.org/browser/nav-history-service;1"]
                                    .getService(Components.interfaces.nsINavHistoryService);
         var options = historyService.getNewQueryOptions();
@@ -17,42 +38,20 @@ var commandKeys = {
         var result = historyService.executeQuery(query, options);
         var bookmarks_bar = result.root;
         bookmarks_bar.containerOpen = true;
-        if (bookmarks_bar.childCount >= 1)
-        {
-            for (var i=0; i < 9; i++) {
-                try {
-                    item = bookmarks_bar.getChild(i);
-                    commandKeys.bookmarks.push(item.uri);
-                    commandKeys.setupKey(i);
-                } catch (err) {
-                    // ran out of bookmarks
-                    break;
-                }
-            }
+        try {
+            uri = bookmarks_bar.getChild(index).uri;
+        } catch (err) {
+            uri = false;
         }
         bookmarks_bar.containerOpen = false;
+        return uri
     },
 
-    setupKey: function(index) {
-        number = index + 1;
-        var key = document.createElement("key");
-        key.setAttribute("id", "commandKeys_" + number);
-        key.setAttribute("key", number);
-        key.setAttribute("oncommand", "commandKeys.go(" + index + ");");
-        key.setAttribute("modifiers", "accel");
-        commandKeys.keyset.appendChild(key);
-
-        // disable old keys
-        if (number < 9) {
-            var old_key = document.getElementById("key_selectTab" + number);
-        } else {
-            var old_key = document.getElementById("key_selectLastTab");
+    go: function(i) {
+        var url = commandKeys.getBookmark(i);
+        if (url) {
+            gBrowser.loadURI(url);
         }
-        old_key.removeAttribute('oncommand');
-    },
-
-    go: function(index) {
-        gBrowser.loadURI(commandKeys.bookmarks[index]);
     }
 }
 

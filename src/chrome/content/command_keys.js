@@ -39,18 +39,22 @@ var commandKeys = {
         var bookmarks_bar = result.root;
         bookmarks_bar.containerOpen = true;
         try {
-            uri = bookmarks_bar.getChild(index).uri;
+            node = bookmarks_bar.getChild(index);
         } catch (err) {
-            uri = false;
+            node = false;
         }
         bookmarks_bar.containerOpen = false;
-        return uri
+        return node
     },
 
     go: function(i) {
-        var url = commandKeys.getBookmark(i);
-        if (url) {
-            gBrowser.loadURI(url);
+        var node = commandKeys.getBookmark(i);
+        if (node) {
+            if (node.uri.indexOf("javascript:") == 0) {
+                PlacesUIUtils.openNodeIn(node);
+            } else {
+                gBrowser.loadURI(node.uri);
+            }
         }
     }
 }

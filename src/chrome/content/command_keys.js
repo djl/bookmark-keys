@@ -1,7 +1,4 @@
 var commandKeys = {
-    bookmarks: [],
-    keyset: document.getElementById("mainKeyset"),
-
     init: function() {
         for (var i=0; i < 9; i++) {
             var tab = i + 1;

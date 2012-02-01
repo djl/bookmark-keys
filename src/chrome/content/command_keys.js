@@ -47,11 +47,7 @@ var commandKeys = {
     go: function(i) {
         var node = commandKeys.getBookmark(i);
         if (node) {
-            if (node.uri.indexOf("javascript:") == 0) {
-                PlacesUIUtils.openNodeIn(node);
-            } else {
-                gBrowser.loadURI(node.uri);
-            }
+            PlacesUIUtils.openNodeIn(node, "current");
         }
     }
 }

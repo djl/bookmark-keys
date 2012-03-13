@@ -28,9 +28,8 @@ var commandKeys = {
 
         var bookmarksService = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
                                          .getService(Components.interfaces.nsINavBookmarksService);
-        var toolbarFolder = bookmarksService.toolbarFolder;
 
-        query.setFolders([toolbarFolder], 1);
+        query.setFolders([bookmarksService.toolbarFolder], 1);
 
         var result = historyService.executeQuery(query, options);
         var bookmarks_bar = result.root;
@@ -47,7 +46,7 @@ var commandKeys = {
     go: function(i) {
         var node = commandKeys.getBookmark(i);
         if (node) {
-            PlacesUIUtils.openNodeIn(node, "current");
+            PlacesUIUtils.openNodeIn(node, "current", window);
         }
     }
 }

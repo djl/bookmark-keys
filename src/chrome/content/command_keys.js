@@ -46,7 +46,7 @@ var commandKeys = {
     go: function(i) {
         var node = commandKeys.getBookmark(i);
         if (node) {
-            window.openUILinkIn(node.uri, "current");
+            PlacesUIUtils.openNodeIn(node, "current", window);
         }
     }
 }

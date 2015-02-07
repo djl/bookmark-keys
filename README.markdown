@@ -1,4 +1,4 @@
-Command Keys
-------------
+Bookmark Keys
+-------------
 
-Safari-style access to your bookmarks bar using command/control 1-9.
+Access your bookmarks bar using cmd/ctrl 1-9.

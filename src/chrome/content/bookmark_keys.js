@@ -1,12 +1,12 @@
-var commandKeys = {
+var bookmarkKeys = {
     init: function() {
         for (var i=0; i < 9; i++) {
             var tab = i + 1;
             var keyset = document.getElementById("mainKeyset");
             var key = document.createElement("key");
-            key.setAttribute("id", "commandKeys_" + tab);
+            key.setAttribute("id", "bookmarkKeys_" + tab);
             key.setAttribute("key", tab);
-            key.setAttribute("oncommand", "commandKeys.go(" + i + ");");
+            key.setAttribute("oncommand", "bookmarkKeys.go(" + i + ");");
             key.setAttribute("modifiers", "accel");
             keyset.appendChild(key);
 
@@ -44,11 +44,11 @@ var commandKeys = {
     },
 
     go: function(i) {
-        var node = commandKeys.getBookmark(i);
+        var node = bookmarkKeys.getBookmark(i);
         if (node) {
             PlacesUIUtils._openNodeIn(node, "current", window);
         }
     }
 }
 
-window.addEventListener("load", commandKeys.init, false);
+window.addEventListener("load", bookmarkKeys.init, false);

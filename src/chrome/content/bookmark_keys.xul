@@ -1,4 +1,4 @@
 <?xml version="1.0"?>
 <overlay id="command_keys" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-	<script type="application/x-javascript" src="chrome://command_keys/content/command_keys.js" />
+	<script type="application/x-javascript" src="chrome://bookmark_keys/content/bookmark_keys.js" />
 </overlay>

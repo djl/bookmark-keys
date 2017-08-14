@@ -1,0 +1,53 @@
+{
+    "name": "Bookmark keys",
+    "description": "Access your bookmarks bar with ctrl/cmd + 1-9.",
+    "manifest_version": 2,
+    "version": "1.0.2",
+    "homepage_url": "https://github.com/djl/bookmark-keys",
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "permissions": [
+        "*://*/*",
+        "bookmarks",
+        "tabs"
+    ],
+    "commands": {
+        "1": {
+            "suggested_key": { "default": "Ctrl+1" },
+            "description": "Open the 1st bookmark"
+        },
+        "2": {
+            "suggested_key": { "default": "Ctrl+2" },
+            "description": "Open the 2nd bookmark"
+        },
+        "3": {
+            "suggested_key": { "default": "Ctrl+3" },
+            "description": "Open the 3rd bookmark"
+        },
+        "4": {
+            "suggested_key": { "default": "Ctrl+4" },
+            "description": "Open the 4th bookmark"
+        },
+        "5": {
+            "suggested_key": { "default": "Ctrl+5" },
+            "description": "Open the 5th bookmark"
+        },
+        "6": {
+            "suggested_key": { "default": "Ctrl+6" },
+            "description": "Open the 6th bookmark"
+        },
+        "7": {
+            "suggested_key": { "default": "Ctrl+7" },
+            "description": "Open the 7th bookmark"
+        },
+        "8": {
+            "suggested_key": { "default": "Ctrl+8" },
+            "description": "Open the 8th bookmark"
+        },
+        "9": {
+            "suggested_key": { "default": "Ctrl+9" },
+            "description": "Open the 9th bookmark"
+        }
+    }
+}

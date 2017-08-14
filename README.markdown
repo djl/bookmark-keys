@@ -1,4 +1,3 @@
-Bookmark Keys
--------------
+# Bookmark Keys
 
-Access your bookmarks bar using cmd/ctrl 1-9.
+Access your bookmarks bar with ctrl/cmd 1-9.

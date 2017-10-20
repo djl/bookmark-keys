@@ -4,7 +4,6 @@ browser.commands.onCommand.addListener((num) => {
         var url = tree[idx].url;
         if (url.indexOf("javascript:") == 0) {
             url = unescape(url.split("javascript:")[1]);
-            console.log(url);
             browser.tabs.executeScript({"code": url});
         } else {
             browser.tabs.update({"url": url});

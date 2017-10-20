@@ -2,7 +2,7 @@
     "name": "Bookmark keys",
     "description": "Access your bookmarks bar with ctrl/cmd + 1-9.",
     "manifest_version": 2,
-    "version": "1.0.2",
+    "version": "1.0.3",
     "homepage_url": "https://github.com/djl/bookmark-keys",
     "background": {
         "scripts": ["background.js"]
